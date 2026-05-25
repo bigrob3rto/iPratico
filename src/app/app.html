@@ -35,6 +35,7 @@
         <!-- Clear Button (Only shows if table has rows) -->
         @if (scrapeResultsList.length > 0) {
         <p-button label="Clear" icon="pi pi-trash" severity="danger" variant="outlined" (onClick)="clearTable()" />
+        <p-button label="Export Excel" icon="pi pi-file-excel" severity="success" variant="outlined" (onClick)="exportExcel()" />
         }
       </div>
     </div>

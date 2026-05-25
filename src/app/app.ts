@@ -7,6 +7,7 @@ import { StreamService, ScrapeResponse } from './stream.service'; // Import serv
 import { TableModule } from 'primeng/table'; // 👈 Import Table module
 import { ProgressBarModule } from 'primeng/progressbar';
 import { differenceInDays } from 'date-fns';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +20,8 @@ import { differenceInDays } from 'date-fns';
 
 export class App implements OnInit {
   protected readonly title = signal('iPratico');
-  date_start: Date = new Date(2026, 5, 1); // Opens to January 2026  
-  date_end: Date = new Date(2026, 5, 3); // Opens to June 2026
+  date_start: Date = new Date(2026, 4, 1); // Opens to January 2026  
+  date_end: Date = new Date(2026, 4, 3); // Opens to June 2026
   scrapeResultsList: ScrapeResponse[] = [];
   // Inject your custom stream service
   private scrapeStreamService = inject(StreamService);
@@ -72,5 +73,30 @@ export class App implements OnInit {
     // If using Signals:
     this.scrapeResultsList = [];
     this.cdr.detectChanges();
+  }
+
+  exportExcel(): void {
+    // 1. Transform nested data into a flat array structure for SheetJS
+    const exportData = this.scrapeResultsList.map(data => ({
+      'Giorno': data.day,
+      'INCASSO TOT': data.result?.incasso,
+      'Annulli': data.result?.annulli,
+      'Addebiti': data.result?.addebiti,
+      'INCASSO PRANZO': data.result_pranzo?.incasso,
+      'INCASSO CENA': data.result_cena?.incasso,
+      'COPERTI': data.result?.coperti,
+      'COPERTI PRANZO': data.result_pranzo?.coperti,
+      'COPERTI CENA': data.result_cena?.coperti
+    }));
+
+    // 2. Generate the worksheet from the clean JSON object array
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
+
+    // 3. Create workbook and append sheet
+    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Dati Scraper');
+
+    // 4. Trigger download
+    XLSX.writeFile(workbook, 'Report_Incassi.xlsx');
   }
 }

@@ -28,10 +28,11 @@ export interface ScrapeResponse {
 export class StreamService {
   private http = inject(HttpClient);
   //private baseUrl = 'http://192.168.1.101:3000/scrape';
-// http://gig3tto.duckdns.org:3000/
-  private baseUrl = 'http://gig3tto.duckdns.org:3000/scrape';
+  // http://gig3tto.duckdns.org:3000/
+  //private baseUrl = 'http://gig3tto.duckdns.org:3000/scrape';
+  private baseUrl = 'https://scraper-gigtto6996-nrcrc2g1.leapcell.dev/scrape';
 
-    // Helper method to convert a JavaScript Date to local YYYY-MM-DD safely
+  // Helper method to convert a JavaScript Date to local YYYY-MM-DD safely
   private formatDate(date: Date): string {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
