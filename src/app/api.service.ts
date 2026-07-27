@@ -24,6 +24,7 @@ export class ApiService {
 
     geClosures(): Observable<any> {
         const apiUrl = 'https://apicb.ipraticocloud.com/api/public/closure';
+        //const apiUrl = 'https://apicb.ipraticocloud.com/api/public/closed-payment-sessions';
 
         const headers = new HttpHeaders({
             'accept': 'application/json',

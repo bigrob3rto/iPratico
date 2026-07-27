@@ -50,21 +50,15 @@
   <table border="1" cellspacing="0" cellpadding="5">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Number</th>
         <th>Date</th>
-        <th>Customer</th>
-        <th>Total</th>
+        <th>Scontrini</th>
       </tr>
     </thead>
 
     <tbody>
       @for (closure of closures; track closure.id) {
         <tr>
-          <td>{{ closure.id }}</td>
-          <td>{{ closure.number }}</td>
           <td>{{ closure.value.referenceDate }}</td>
-          <td>{{ closure.customer }}</td>
           <td>{{ closure.value.APPTotal }}</td>
         </tr>
       }
