@@ -9,10 +9,11 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { differenceInDays } from 'date-fns';
 import * as XLSX from 'xlsx';
 import { ApiService } from './api.service';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ButtonModule, DatePickerModule, FormsModule, TableModule, ProgressBarModule
+  imports: [RouterOutlet, ButtonModule, DatePickerModule, FormsModule, TableModule, ProgressBarModule, CurrencyPipe
   ], // 
   templateUrl: './app.html',
   standalone: true,

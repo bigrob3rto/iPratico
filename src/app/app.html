@@ -59,7 +59,7 @@
       @for (closure of closures; track closure.id) {
         <tr>
           <td>{{ closure.value.referenceDate }}</td>
-          <td>{{ closure.value.APPTotal }}</td>
+          <td>{{ closure.value.APPTotal | currency:'EUR' }}</td>
         </tr>
       }
     </tbody>
