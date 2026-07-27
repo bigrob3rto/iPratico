@@ -8,6 +8,7 @@ import { TableModule } from 'primeng/table'; // 👈 Import Table module
 import { ProgressBarModule } from 'primeng/progressbar';
 import { differenceInDays } from 'date-fns';
 import * as XLSX from 'xlsx';
+import { ApiService } from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -25,14 +26,37 @@ export class App implements OnInit {
   scrapeResultsList: ScrapeResponse[] = [];
   // Inject your custom stream service
   private scrapeStreamService = inject(StreamService);
+  private apiService = inject(ApiService);
   private cdr = inject(ChangeDetectorRef); // 2. Inject detection framework
   loading: boolean = false; // To track loading state 
   loading_value: number = 0; // To track progress value
+  orders: any;
 
   ngOnInit(): void {
   }
 
 
+  /********************************************************************** */
+  async handleApiCall(event: MouseEvent) {
+    console.log('Api button was clicked!', event);
+    // Your API call logic goes here
+
+    this.apiService.getOrders().subscribe({
+      next: (response) => {
+        this.orders = response;
+        console.log('Ordini:', response);
+      },
+      error: (error) => {
+        console.error('Errore API:', error);
+      },
+      complete: () => {
+        console.log('Richiesta completata');
+      }
+    });
+  }
+
+  
+  /**********************************************************************/
   async handleScrape(event: MouseEvent) {
     console.log('Scrape button was clicked!', event);
     console.log('Selected Start Date:', this.date_start);

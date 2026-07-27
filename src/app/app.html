@@ -32,6 +32,8 @@
 
         <!-- Scrape Action Button -->
         <button pButton type="button" label="Scrape" icon="pi pi-check" (click)="handleScrape($event)"></button>
+        <!-- Api Action Button -->
+        <button pButton type="button" label="Api" icon="pi pi-server" (click)="handleApiCall($event)"></button>
         <!-- Clear Button (Only shows if table has rows) -->
         @if (scrapeResultsList.length > 0) {
         <p-button label="Clear" icon="pi pi-trash" severity="danger" variant="outlined" (onClick)="clearTable()" />
