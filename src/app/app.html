@@ -47,23 +47,41 @@
 
 
 @if (closures.length > 0) {
-  <table border="1" cellspacing="0" cellpadding="5">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Scontrini</th>
-      </tr>
-    </thead>
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Giorno</th>
+      <th>Incasso</th>
+      <th>Annulli</th>
+      <th>Addebiti</th>
+      <th>INCASSO PRANZO</th>
+      <th>INCASSO CENA</th>
+      <th>COPERTI</th>
+      <th>COPERTI PRANZO</th>
+      <th>COPERTI CENA</th>
+    </tr>
+  </thead>
 
-    <tbody>
-      @for (closure of closures; track closure.id) {
-        <tr>
-          <td>{{ closure.value.referenceDate }}</td>
-          <td>{{ closure.value.APPTotal | currency:'EUR' }}</td>
-        </tr>
-      }
-    </tbody>
-  </table>
+  <tbody>
+    @for (closure of closures; track closure.id) {
+    <tr>
+      <td>{{ closure.value.referenceDate }}</td>
+      <td>{{ closure.value.stats.trainingIncluded.total | currency:'EUR' }}</td>
+      <td>{{ closure.value.stats.trainingIncluded.refundsTotal | currency:'EUR' }}</td>
+      <td>{{ getTotalByType(closure.value.stats.trainingIncluded, 'payment.pre.bill') | currency:'EUR' }}</td>
+
+      <td>{{ 0 | currency:'EUR' }}</td>
+      <td>{{ 0 | currency:'EUR' }}</td>
+
+      <td>{{ closure.value.stats.trainingIncluded.nSittingPeople }}</td>
+
+      <td>{{ 0 | currency:'EUR' }}</td>
+      <td>{{ 0 | currency:'EUR' }}</td>
+
+    </tr>
+    }
+  </tbody>
+</table>
 }
 
 <!-- Table displays only when scrapeData contains values -->

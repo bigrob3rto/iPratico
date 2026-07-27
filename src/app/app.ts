@@ -9,7 +9,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { differenceInDays } from 'date-fns';
 import * as XLSX from 'xlsx';
 import { ApiService } from './api.service';
-import {CurrencyPipe} from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -37,6 +37,12 @@ export class App implements OnInit {
   ngOnInit(): void {
   }
 
+
+  // Method to find total by documentType
+  getTotalByType(path:any, type: string): number {
+    const item = path.totalPerDocumentType.find((d: { documentType: string; }) => d.documentType === type);
+    return item ? item.total : 0; // Returns 0 if not found
+  }
 
   /********************************************************************** */
   async handleApiCall(event: MouseEvent) {
