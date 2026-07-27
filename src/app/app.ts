@@ -30,7 +30,7 @@ export class App implements OnInit {
   private cdr = inject(ChangeDetectorRef); // 2. Inject detection framework
   loading: boolean = false; // To track loading state 
   loading_value: number = 0; // To track progress value
-  orders: any;
+  items: any;
 
   ngOnInit(): void {
   }
@@ -41,9 +41,9 @@ export class App implements OnInit {
     console.log('Api button was clicked!', event);
     // Your API call logic goes here
 
-    this.apiService.getOrders().subscribe({
+    this.apiService.geClosures().subscribe({
       next: (response) => {
-        this.orders = response;
+        this.items = response;
         console.log('Ordini:', response);
       },
       error: (error) => {
