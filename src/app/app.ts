@@ -30,7 +30,8 @@ export class App implements OnInit {
   private cdr = inject(ChangeDetectorRef); // 2. Inject detection framework
   loading: boolean = false; // To track loading state 
   loading_value: number = 0; // To track progress value
-  items: any;
+
+  closures: any[] = [];
 
   ngOnInit(): void {
   }
@@ -43,7 +44,7 @@ export class App implements OnInit {
 
     this.apiService.geClosures().subscribe({
       next: (response) => {
-        this.items = response;
+        this.closures = response;
         console.log('Ordini:', response);
       },
       error: (error) => {
@@ -51,11 +52,12 @@ export class App implements OnInit {
       },
       complete: () => {
         console.log('Richiesta completata');
+        this.cdr.detectChanges();
       }
     });
   }
 
-  
+
   /**********************************************************************/
   async handleScrape(event: MouseEvent) {
     console.log('Scrape button was clicked!', event);

@@ -37,12 +37,40 @@
         <!-- Clear Button (Only shows if table has rows) -->
         @if (scrapeResultsList.length > 0) {
         <p-button label="Clear" icon="pi pi-trash" severity="danger" variant="outlined" (onClick)="clearTable()" />
-        <p-button label="Export Excel" icon="pi pi-file-excel" severity="success" variant="outlined" (onClick)="exportExcel()" />
+        <p-button label="Export Excel" icon="pi pi-file-excel" severity="success" variant="outlined"
+          (onClick)="exportExcel()" />
         }
       </div>
     </div>
   </div>
 </main>
+
+
+@if (closures.length > 0) {
+  <table border="1" cellspacing="0" cellpadding="5">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Number</th>
+        <th>Date</th>
+        <th>Customer</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (closure of closures; track closure.id) {
+        <tr>
+          <td>{{ closure.id }}</td>
+          <td>{{ closure.number }}</td>
+          <td>{{ closure.value.referenceDate }}</td>
+          <td>{{ closure.customer }}</td>
+          <td>{{ closure.value.APPTotal }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
 
 <!-- Table displays only when scrapeData contains values -->
 @if (scrapeResultsList.length > 0) {
