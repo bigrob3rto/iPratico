@@ -46,7 +46,7 @@
 </main>
 
 
-@if (closures.length > 0) {
+@if (stats) {
 <table border="1" cellspacing="0" cellpadding="5">
   <thead>
     <tr>
@@ -63,23 +63,21 @@
   </thead>
 
   <tbody>
-    @for (closure of closures; track closure.id) {
     <tr>
-      <td>{{ closure.value.referenceDate }}</td>
-      <td>{{ closure.value.stats.trainingIncluded.total | currency:'EUR' }}</td>
-      <td>{{ closure.value.stats.trainingIncluded.refundsTotal | currency:'EUR' }}</td>
-      <td>{{ getTotalByType(closure.value.stats.trainingIncluded, 'payment.pre.bill') | currency:'EUR' }}</td>
+      <td>{{ 0 }}</td>
+      <td>{{ stats[0].totalSold | currency:'EUR' }}</td>
+      <td>{{ stats[0].totalRefunds | currency:'EUR' }}</td>
+      <td>{{ getTotalByType(stats[0], 'payment.pre.bill') | currency:'EUR' }}</td>
 
-      <td>{{ 0 | currency:'EUR' }}</td>
-      <td>{{ 0 | currency:'EUR' }}</td>
+      <td>{{ stats[1].totalSold | currency:'EUR' }}</td>
+      <td>{{ stats[2].totalSold | currency:'EUR' }}</td>
 
-      <td>{{ closure.value.stats.trainingIncluded.nSittingPeople }}</td>
+      <td>{{ stats[0].nSittingPeople }}</td>
 
-      <td>{{ 0 | currency:'EUR' }}</td>
-      <td>{{ 0 | currency:'EUR' }}</td>
+      <td>{{ stats[1].nSittingPeople }}</td>
+      <td>{{ stats[2].nSittingPeople }}</td>
 
     </tr>
-    }
   </tbody>
 </table>
 }

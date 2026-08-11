@@ -22,8 +22,10 @@ import { CurrencyPipe } from '@angular/common';
 
 export class App implements OnInit {
   protected readonly title = signal('iPratico');
-  date_start: Date = new Date(2026, 4, 1); // Opens to January 2026  
-  date_end: Date = new Date(2026, 4, 3); // Opens to June 2026
+
+  date_end: Date = new Date(); // Opens to today's date
+  date_start: Date = new Date(this.date_end.getTime() - 7 * 24 * 60 * 60 * 1000); // One day before date_end
+
   scrapeResultsList: ScrapeResponse[] = [];
   // Inject your custom stream service
   private scrapeStreamService = inject(StreamService);
@@ -32,16 +34,18 @@ export class App implements OnInit {
   loading: boolean = false; // To track loading state 
   loading_value: number = 0; // To track progress value
 
-  closures: any[] = [];
+  stats: any = null; // Initialize stats as null
 
   ngOnInit(): void {
+      this.date_start.setHours(0, 0, 0, 0); 
+      this.date_end.setHours(23, 59, 0, 0); 
   }
 
 
   // Method to find total by documentType
   getTotalByType(path:any, type: string): number {
-    const item = path.totalPerDocumentType.find((d: { documentType: string; }) => d.documentType === type);
-    return item ? item.total : 0; // Returns 0 if not found
+    const item = path.documentTypeChart.find((d: { name: string; value: number }) => d.name === type);
+    return item ? item.value : 0; // Returns 0 if not found
   }
 
   /********************************************************************** */
@@ -49,9 +53,9 @@ export class App implements OnInit {
     console.log('Api button was clicked!', event);
     // Your API call logic goes here
 
-    this.apiService.getStatistics().subscribe({
+    this.apiService.getStatistics(this.date_start, this.date_end).subscribe({
       next: (response) => {
-        this.closures = response;
+        this.stats = response;
         console.log('Response:', response);
       },
       error: (error) => {
