@@ -49,10 +49,10 @@ export class App implements OnInit {
     console.log('Api button was clicked!', event);
     // Your API call logic goes here
 
-    this.apiService.geClosures().subscribe({
+    this.apiService.getStatistics().subscribe({
       next: (response) => {
         this.closures = response;
-        console.log('Ordini:', response);
+        console.log('Response:', response);
       },
       error: (error) => {
         console.error('Errore API:', error);

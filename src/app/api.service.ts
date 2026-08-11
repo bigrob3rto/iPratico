@@ -34,12 +34,40 @@ export class ApiService {
         // Create Date objects with specific times: 11:00:00 and 18:00:00
         // Note: Month is 0-indexed (4 = May)
         const dateFrom = new Date(2026, 5, 1, 11, 0, 0);  // May 1, 2026 at 11:00 AM
-        const dateTo = new Date(2026, 5, 1, 18, 0, 0);    // May 3, 2026 at 6:00 PM
+        const dateTo = new Date(2026, 5, 2, 18, 0, 0);    // May 3, 2026 at 6:00 PM
 
         const params = new HttpParams()
             .set('dateFrom', dateFrom.toISOString()) // Sends: 2026-05-01T11:00:00.000Z
             .set('dateTo', dateTo.toISOString());    // Sends: 2026-05-03T18:00:00.000Z
 
+
+        return this.http.get<any>(apiUrl, {
+            headers,
+            params
+        });
+    }
+
+    getStatistics(): Observable<any> {
+        const apiUrl = 'https://apiportal.ipraticocloud.com/statistics/data';
+
+        const params = new HttpParams()
+            .set('channel', 'lct_19305,lct_19305')
+            .set('training', '1')
+            .set('dateFrom', '2026-08-04')
+            .set('dateTo', '2026-08-11')
+            .set('cashed', '1')
+            .set('referenceDate', '1')
+            .set('filterOrderFrom', '')
+            .set('includeAffiliations', '1')
+            .set('application', 'eat')
+            //.set('timeSlot', '11:00:00.000-18:00:00.000');      // pranzo
+            .set('timeSlot', '19:00:00.000-02:00:00.000');      // cena
+
+
+        const headers = new HttpHeaders({
+            'Accept': 'application/json',
+            'Authorization': 'OychwWuvExJ3lm6cX3kFZ6cPUzam3IkLuUj9vCx6'
+        });
 
         return this.http.get<any>(apiUrl, {
             headers,
